@@ -28,14 +28,14 @@ const SERVICOS = [{"cat": "Sites", "itens": [["lp", "Landing Page", "Página foc
 
   function tick() {
     raf = 0;
-    var vh = window.innerHeight, ps = new Map();
+    var vh = window.innerHeight, ps = new Map(), fim = window.scrollY >= root.scrollHeight - vh - 4;
     cenas.forEach(function (el) {
       var p = 1, q = 0;
       if (wide) {
         var r = el.getBoundingClientRect();
         if (el.dataset.cena === 'pin') p = cl(-r.top / Math.max(1, r.height - vh));
-        else p = cl((vh - r.top) / (vh * 0.75));
-        if (el.dataset.cena === 'hero') q = cl(-r.top / (r.height * 0.8));
+        else p = fim ? 1 : cl((vh - r.top) / (vh * 0.6));
+        if (el.dataset.cena === 'hero') q = cl((vh * 0.45 - r.bottom) / (vh * 0.4));
       }
       ps.set(el, p);
       el.style.setProperty('--p', p.toFixed(4));
@@ -47,7 +47,7 @@ const SERVICOS = [{"cat": "Sites", "itens": [["lp", "Landing Page", "Página foc
     });
     ks.forEach(function (k) {
       var p = k.c ? (ps.has(k.c) ? ps.get(k.c) : 1) : 1;
-      k.el.style.setProperty('--k', cl((p - k.a) / k.d).toFixed(4));
+      k.el.style.setProperty('--k', cl((p - k.a) / Math.max(.05, Math.min(k.d, 1 - k.a))).toFixed(4));
     });
     var max = root.scrollHeight - vh;
     root.style.setProperty('--prog', (max > 0 ? cl(window.scrollY / max) : 0).toFixed(4));
