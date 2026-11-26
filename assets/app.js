@@ -14,6 +14,19 @@ const SERVICOS = [{"cat": "Sites", "itens": [["lp", "Landing Page", "Página foc
   var faixa = function (a, b) { return moeda(a) + ' – ' + moeda(b); };
   var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
+  /* ---------- cursor: alvo (objetivo) ---------- */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var c = document.createElement('div'); c.className = 'alvo-c'; c.innerHTML = '<span class="r"></span><span class="t a"></span><span class="t b"></span><span class="t c"></span><span class="t d"></span>';
+    var pt = document.createElement('div'); pt.className = 'alvo-p';
+    document.body.appendChild(c); document.body.appendChild(pt); root.classList.add('alvo');
+    var mx = -100, my = -100, cx = -100, cy = -100;
+    window.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; pt.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      var el = e.target.closest ? e.target.closest('a, button, input, textarea, [role="button"]') : null; c.classList.toggle('on', !!el);
+      var bg = e.target.closest ? e.target.closest('[data-escuro], footer, nav') : null; c.classList.toggle('esc', !!(bg && bg.tagName === 'NAV')); }, { passive: true });
+    document.addEventListener('mouseleave', function () { c.style.opacity = pt.style.opacity = 0; });
+    document.addEventListener('mouseenter', function () { c.style.opacity = pt.style.opacity = 1; });
+    (function seg() { cx += (mx - cx) * (reduz ? 1 : .35); cy += (my - cy) * (reduz ? 1 : .35); c.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)'; requestAnimationFrame(seg); })();
+  }
   /* ---------- cenas de scroll ---------- */
   var mq = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
   var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

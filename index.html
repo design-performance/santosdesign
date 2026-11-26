@@ -365,6 +365,29 @@
     @keyframes jsCarta { from { opacity: 0; filter: blur(22px); transform: perspective(1400px) rotateY(-30deg) rotateX(12deg) translate3d(80px, 40px, -320px); } to { opacity: 1; filter: blur(0); transform: none; } }
     @keyframes jsSobe { from { opacity: 0; filter: blur(10px); transform: translate3d(0, 24px, 0); } to { opacity: 1; filter: blur(0); transform: none; } }
     @keyframes jsOnda { 0%, 100% { filter: blur(0); opacity: 1; transform: translate3d(0, 0, 0); } 45% { filter: blur(16px); opacity: 0.55; transform: translate3d(0, -0.035em, 0) scale(1.03); } 60% { filter: blur(4px); opacity: 0.9; } }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 45; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: .07; mix-blend-mode: multiply; }
+    @keyframes jsDeriva { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-40px, 30px, 0) scale(1.08); } }
+    .hb-fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .hb-orb { position: absolute; border-radius: 50%; filter: blur(70px); animation: jsDeriva 14s ease-in-out infinite; }
+    .hb-x { position: absolute; width: 17px; height: 17px; transform: translate(-50%, -50%); }
+    .hb-x::before, .hb-x::after { content: ''; position: absolute; background: rgba(14,13,12,.38); }
+    .hb-x::before { left: 8px; top: 0; width: 1px; height: 17px; } .hb-x::after { top: 8px; left: 0; height: 1px; width: 17px; }
+    .hb-x.or::before, .hb-x.or::after { background: #ff5a1f; }
+    .hb-tag { position: absolute; font: 500 10px 'IBM Plex Mono', monospace; letter-spacing: .14em; color: rgba(14,13,12,.45); text-transform: uppercase; white-space: nowrap; }
+    .hb-tom { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(14,13,12,.55) 1px, transparent 1.4px); background-size: 5px 5px; mix-blend-mode: soft-light; opacity: .55; }
+    .hb-tom2 { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(14,13,12,.35)); }
+    @media (max-width: 900px) { .hb-tag.d, .hb-x.d { display: none; } }
+    @media (hover: hover) and (pointer: fine) {
+      html.alvo, html.alvo a, html.alvo button, html.alvo input, html.alvo textarea { cursor: none; }
+      .alvo-c { position: fixed; left: 0; top: 0; z-index: 70; pointer-events: none; width: 24px; height: 24px; margin: -12px 0 0 -12px; transition: width .25s, height .25s, margin .25s, opacity .2s; }
+      .alvo-c .r { position: absolute; inset: 0; border: 1.5px solid #0e0d0c; border-radius: 50%; transition: border-color .2s, transform .3s cubic-bezier(.16,1,.3,1); }
+      .alvo-c .t { position: absolute; background: #0e0d0c; transition: background .2s; }
+      .alvo-c .t.a { left: 50%; top: -5px; width: 1.5px; height: 6px; margin-left: -.75px; } .alvo-c .t.b { left: 50%; bottom: -5px; width: 1.5px; height: 6px; margin-left: -.75px; }
+      .alvo-c .t.c { top: 50%; left: -5px; height: 1.5px; width: 6px; margin-top: -.75px; } .alvo-c .t.d { top: 50%; right: -5px; height: 1.5px; width: 6px; margin-top: -.75px; }
+      .alvo-p { position: fixed; left: 0; top: 0; z-index: 71; pointer-events: none; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #ff5a1f; }
+      .alvo-c.esc .r { border-color: #f7f6f3; } .alvo-c.esc .t { background: #f7f6f3; }
+      .alvo-c.on .r { border-color: #ff5a1f; transform: scale(1.6) rotate(45deg); } .alvo-c.on .t { background: #ff5a1f; }
+    }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
   
 .x1:hover{color: #f7f6f3 !important}
@@ -407,7 +430,15 @@
 </div>
 
 <section id="topo" data-cena="hero" data-screen-label="Hero" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; background-color: #f7f6f3; background-image: linear-gradient(rgba(14,13,12,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14,13,12,.06) 1px, transparent 1px); background-size: 80px 80px; overflow: hidden;">
-  <div style="flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 56px; align-items: center; max-width: 1280px; width: 100%; margin: 0 auto; padding: clamp(120px, 14vw, 160px) clamp(20px, 4vw, 32px) 64px; box-sizing: border-box;">
+  <div class="hb-fx" aria-hidden="true">
+    <div class="hb-orb" style="width: 560px; height: 560px; right: -120px; top: 18%; background: radial-gradient(circle, rgba(255,90,31,.42), rgba(255,90,31,0) 68%);"></div>
+    <div class="hb-orb" style="width: 460px; height: 460px; left: -160px; bottom: -120px; background: radial-gradient(circle, rgba(59,91,255,.18), rgba(59,91,255,0) 68%); animation-delay: -7s;"></div>
+    <span class="hb-x or" style="left: 80px; top: 240px;"></span><span class="hb-x d" style="right: calc(100% - 80px * 13); top: 240px;"></span>
+    <span class="hb-x d" style="left: 80px; top: 720px;"></span><span class="hb-x or d" style="left: calc(80px * 15); top: 80px;"></span>
+    <span class="hb-tag d" style="left: calc(80px * 15 + 16px); top: 92px;">N 18°55′ · W 48°16′</span>
+    <span class="hb-tag" style="right: clamp(20px, 4vw, 32px); bottom: 84px;">sites · interfaces · sistemas — v.2026</span>
+  </div>
+  <div style="position: relative; flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 56px; align-items: center; max-width: 1280px; width: 100%; margin: 0 auto; padding: clamp(120px, 14vw, 160px) clamp(20px, 4vw, 32px) 64px; box-sizing: border-box;">
     <div style="display: flex; flex-direction: column; gap: 28px; transform: translate3d(0, calc(var(--q, 0) * -90px), 0); filter: blur(calc(var(--q, 0) * 10px)); opacity: calc(1 - var(--q, 0) * 0.85); will-change: transform, filter;">
       <span style="display: flex; align-items: center; gap: 12px; font: 500 12px 'IBM Plex Mono', monospace; letter-spacing: 0.12em; color: #66635c; animation: jsSobe 0.8s 0.05s cubic-bezier(.16,1,.3,1) both;"><span style="width: 28px; height: 2px; background: #ff5a1f;"></span>JOANDER SANTOS · WEB DESIGNER &amp; UX/UI</span>
       <h1 style="font: 700 clamp(3rem, 1.4rem + 6vw, 7rem)/0.94 'Space Grotesk', sans-serif; letter-spacing: -0.05em; perspective: 900px;">
@@ -427,9 +458,9 @@
     <div style="perspective: 1400px; display: flex; justify-content: flex-end;">
       <div style="width: 100%; max-width: 480px; animation: jsCarta 1.4s 0.3s cubic-bezier(.16,1,.3,1) both;">
         <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; transform-style: preserve-3d; transform: rotateY(calc(var(--mx, 0) * -7deg + var(--q, 0) * 6deg)) rotateX(calc(var(--my, 0) * 5deg + var(--q, 0) * 3deg)) translate3d(0, calc(var(--q, 0) * 60px), calc(var(--q, 0) * -60px)); transition: transform 0.5s cubic-bezier(.16,1,.3,1); will-change: transform;">
-          <div style="width: 100%; aspect-ratio: 4 / 4.2; border-radius: 28px; overflow: hidden; background: #e2e0da; box-shadow: 0 40px 80px rgba(14,13,12,.18);">
-            <img src="assets/img/joander-1200.webp" srcset="assets/img/joander-720.webp 720w, assets/img/joander-1200.webp 1200w" sizes="(max-width: 600px) 92vw, 480px" width="1200" height="513" fetchpriority="high" alt="Joander Santos" style="width: 100%; height: 100%; object-fit: cover; object-position: center 18%; filter: grayscale(1) contrast(1.05); display: block; transform: scale(calc(1.06 + var(--q, 0) * 0.12)) translate3d(calc(var(--mx, 0) * 8px), calc(var(--my, 0) * 8px), 0); transition: transform 0.6s cubic-bezier(.16,1,.3,1);">
-          </div>
+          <div style="position: relative; width: 100%; aspect-ratio: 4 / 4.2; border-radius: 28px; overflow: hidden; background: #e2e0da; box-shadow: 0 40px 80px rgba(14,13,12,.18);">
+            <img src="assets/img/joander-1200.webp" srcset="assets/img/joander-720.webp 720w, assets/img/joander-1200.webp 1200w" sizes="(max-width: 600px) 92vw, 480px" width="1200" height="1120" fetchpriority="high" alt="Joander Santos" style="width: 100%; height: 100%; object-fit: cover; object-position: 38% 30%; filter: grayscale(1) contrast(1.08); display: block; transform: scale(calc(1.06 + var(--q, 0) * 0.12)) translate3d(calc(var(--mx, 0) * 8px), calc(var(--my, 0) * 8px), 0); transition: transform 0.6s cubic-bezier(.16,1,.3,1);">
+          <span class="hb-tom" aria-hidden="true"></span><span class="hb-tom2" aria-hidden="true"></span></div>
           <span style="position: absolute; top: 18px; left: 18px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: #d4ff3a; color: #0e0d0c; font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: 0.04em; transform: translateZ(70px); box-shadow: 0 14px 30px rgba(14,13,12,.18);"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0e0d0c;"></span>ABERTO PARA PROJETOS</span>
           <div style="width: calc(100% - 32px); max-width: 420px; margin: -96px 16px 0 0; background: #0e0d0c; color: #f7f6f3; border-radius: 24px; padding: 26px 24px; box-sizing: border-box; box-shadow: 0 40px 70px rgba(14,13,12,.3); display: flex; flex-direction: column; gap: 10px; transform: translateZ(110px);">
             <p style="font: italic 500 18px 'Newsreader', serif; color: rgba(247,246,243,0.62);">Olá!</p>
@@ -948,7 +979,7 @@
       </div>
     </div>
   </div>
-  <div aria-hidden="true" style="display: flex; font: 700 clamp(7rem, 26vw, 24rem)/0.74 'Space Grotesk', sans-serif; letter-spacing: -0.065em; white-space: nowrap; margin: 40px 0 -0.04em -0.04em; perspective: 1000px;">
+  <div aria-hidden="true" style="display: flex; justify-content: center; width: 100vw; margin: 40px 0 -0.04em calc(50% - 50vw); font: 700 calc(100vw / 3.08)/0.74 'Space Grotesk', sans-serif; letter-spacing: -0.065em; white-space: nowrap; perspective: 1000px; overflow: visible;">
     
       <span data-k="0.35,0.35" style="display: inline-block; transform-origin: 50% 100%; transform: translate3d(0, calc((1 - var(--k, 1)) * 0.5em), 0) rotateX(calc((1 - var(--k, 1)) * -70deg)); filter: blur(calc((1 - var(--k, 1)) * 18px)); opacity: var(--k, 1);"><span style="display: inline-block; animation: jsOnda 3.6s ease-in-out infinite; animation-delay: 0.00s;">s</span></span>
     
