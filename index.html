@@ -365,10 +365,11 @@
     @keyframes jsCarta { from { opacity: 0; filter: blur(22px); transform: perspective(1400px) rotateY(-30deg) rotateX(12deg) translate3d(80px, 40px, -320px); } to { opacity: 1; filter: blur(0); transform: none; } }
     @keyframes jsSobe { from { opacity: 0; filter: blur(10px); transform: translate3d(0, 24px, 0); } to { opacity: 1; filter: blur(0); transform: none; } }
     @keyframes jsOnda { 0%, 100% { filter: blur(0); opacity: 1; transform: translate3d(0, 0, 0); } 45% { filter: blur(16px); opacity: 0.55; transform: translate3d(0, -0.035em, 0) scale(1.03); } 60% { filter: blur(4px); opacity: 0.9; } }
-    body::after { content: ''; position: fixed; inset: 0; z-index: 45; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: .07; mix-blend-mode: multiply; }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 45; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: .045; }
     @keyframes jsDeriva { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-40px, 30px, 0) scale(1.08); } }
     .hb-fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .hb-orb { position: absolute; border-radius: 50%; filter: blur(70px); animation: jsDeriva 14s ease-in-out infinite; }
+    .hb-orb { position: absolute; border-radius: 50%; animation: jsDeriva 14s ease-in-out infinite; will-change: transform; }
+    @media (max-width: 900px) { .hb-orb { animation: none; } }
     .hb-x { position: absolute; width: 17px; height: 17px; transform: translate(-50%, -50%); }
     .hb-x::before, .hb-x::after { content: ''; position: absolute; background: rgba(14,13,12,.38); }
     .hb-x::before { left: 8px; top: 0; width: 1px; height: 17px; } .hb-x::after { top: 8px; left: 0; height: 1px; width: 17px; }
@@ -460,8 +461,8 @@
 
 <section id="topo" data-cena="hero" data-screen-label="Hero" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; background-color: #f7f6f3; background-image: linear-gradient(rgba(14,13,12,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14,13,12,.06) 1px, transparent 1px); background-size: 80px 80px; overflow: hidden;">
   <div class="hb-fx" aria-hidden="true">
-    <div class="hb-orb" style="width: 560px; height: 560px; right: -120px; top: 18%; background: radial-gradient(circle, rgba(255,90,31,.42), rgba(255,90,31,0) 68%);"></div>
-    <div class="hb-orb" style="width: 460px; height: 460px; left: -160px; bottom: -120px; background: radial-gradient(circle, rgba(59,91,255,.18), rgba(59,91,255,0) 68%); animation-delay: -7s;"></div>
+    <div class="hb-orb" style="width: 560px; height: 560px; right: -120px; top: 18%; background: radial-gradient(circle, rgba(255,90,31,.3) 0%, rgba(255,90,31,.14) 30%, rgba(255,90,31,.04) 50%, rgba(255,90,31,0) 64%);"></div>
+    <div class="hb-orb" style="width: 460px; height: 460px; left: -160px; bottom: -120px; background: radial-gradient(circle, rgba(59,91,255,.14) 0%, rgba(59,91,255,.06) 40%, rgba(59,91,255,0) 70%); animation-delay: -7s;"></div>
     <span class="hb-x or" style="left: 80px; top: 240px;"></span><span class="hb-x d" style="right: calc(100% - 80px * 13); top: 240px;"></span>
     <span class="hb-x d" style="left: 80px; top: 720px;"></span><span class="hb-x or d" style="left: calc(80px * 15); top: 80px;"></span>
     <span class="hb-tag d" style="left: calc(80px * 15 + 16px); top: 92px;">N 18°55′ · W 48°16′</span>

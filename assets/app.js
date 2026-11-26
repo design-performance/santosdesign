@@ -25,7 +25,10 @@ const SERVICOS = [{"cat": "Sites", "itens": [["lp", "Landing Page", "Página foc
       var bg = e.target.closest ? e.target.closest('[data-escuro], footer, nav') : null; c.classList.toggle('esc', !!(bg && bg.tagName === 'NAV')); }, { passive: true });
     document.addEventListener('mouseleave', function () { c.style.opacity = pt.style.opacity = 0; });
     document.addEventListener('mouseenter', function () { c.style.opacity = pt.style.opacity = 1; });
-    (function seg() { cx += (mx - cx) * (reduz ? 1 : .35); cy += (my - cy) * (reduz ? 1 : .35); c.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)'; requestAnimationFrame(seg); })();
+    var andando = false;
+    function seg() { cx += (mx - cx) * (reduz ? 1 : .35); cy += (my - cy) * (reduz ? 1 : .35); c.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+      if (Math.abs(mx - cx) + Math.abs(my - cy) > .3) requestAnimationFrame(seg); else andando = false; }
+    window.addEventListener('mousemove', function () { if (!andando) { andando = true; requestAnimationFrame(seg); } }, { passive: true });
   }
   /* ---------- cenas de scroll ---------- */
   var mq = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
